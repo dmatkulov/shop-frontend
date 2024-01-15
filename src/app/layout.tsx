@@ -1,12 +1,12 @@
-import type { Metadata } from 'next';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+'use client';
+import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import theme from '@/theme';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import AppToolbar from '@/components/UI/AppToolbar/AppToolbar';
+import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-export const metadata: Metadata = {
-  title: 'Shop Frontend',
-  description: 'Educational project for Attractor School React courses',
-};
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -16,12 +16,21 @@ export default function RootLayout({
   return (
     <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
         <CssBaseline/>
         <html lang="en">
           <body>
-            {children}
+          <header>
+            <AppToolbar/>
+          </header>
+          <main>
+            <Container maxWidth="xl">
+              {children}
+            </Container>
+          </main>
           </body>
         </html>
+        </QueryClientProvider>
       </ThemeProvider>
     </AppRouterCacheProvider>
   );
