@@ -21,9 +21,10 @@ export default function Home() {
     productsArea = products.map(product => (
       <ProductItem
         key={product.id}
+        id={product.id}
         title={product.title}
         price={product.price}
-        id={product.id}
+        image={product.image}
       />
     ))
   }
