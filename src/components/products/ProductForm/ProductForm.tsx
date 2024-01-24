@@ -6,7 +6,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import FileInput from '@/components/UI/FileInput/FileInput';
 
 interface Props {
-  onSubmit: (productData: ProductMutation) => void;
+  onSubmit: (productMutation: ProductMutation) => void;
   isLoading: boolean;
 }
 
@@ -15,13 +15,12 @@ const ProductForm: React.FC<Props> = ({onSubmit, isLoading}) => {
     title: '',
     price: '',
     description: '',
-    image: null,
+    image: null
   });
   
   const submitFormHandler = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(state);
-    console.log(state);
   };
   
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +31,10 @@ const ProductForm: React.FC<Props> = ({onSubmit, isLoading}) => {
     }));
   };
   
+  
   const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, files} = e.target;
+    
     if (files) {
       setState(prevState => ({
         ...prevState,
@@ -48,9 +49,7 @@ const ProductForm: React.FC<Props> = ({onSubmit, isLoading}) => {
         <Grid item xs>
           <TextField
             required
-            id="title"
-            type="text"
-            label="Title"
+            id="title" label="Title"
             name="title"
             value={state.title}
             onChange={inputChangeHandler}
@@ -59,10 +58,9 @@ const ProductForm: React.FC<Props> = ({onSubmit, isLoading}) => {
         <Grid item xs>
           <TextField
             required
-            id="price"
-            label="Price"
-            name="price"
+            id="price" label="Price"
             type="number"
+            name="price"
             value={state.price}
             onChange={inputChangeHandler}
           />
@@ -71,9 +69,7 @@ const ProductForm: React.FC<Props> = ({onSubmit, isLoading}) => {
           <TextField
             required
             multiline rows={3}
-            id="description"
-            type="text"
-            label="Description"
+            id="description" label="Description"
             name="description"
             value={state.description}
             onChange={inputChangeHandler}
@@ -88,13 +84,13 @@ const ProductForm: React.FC<Props> = ({onSubmit, isLoading}) => {
         </Grid>
         <Grid item xs>
           <LoadingButton
+            type="submit"
+            color="primary"
+            variant="contained"
+            disabled={isLoading}
             loading={isLoading}
             loadingPosition="start"
             startIcon={<SaveIcon/>}
-            type="submit"
-            color="success"
-            variant="contained"
-            disabled={isLoading}
           >
             Create
           </LoadingButton>

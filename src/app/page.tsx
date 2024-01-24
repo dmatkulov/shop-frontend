@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import axiosApi from '@/axiosApi';
 import { Product } from '@/types';
-import ProductItem from '@/components/products/ProductItem';
+import ProductItem from '@/components/products/ProductItem/ProductItem';
 
 export default function Home() {
   const {data: products, isLoading} = useQuery({
@@ -15,20 +15,21 @@ export default function Home() {
       return productsResponse.data;
     },
   });
-  
-  let productsArea: React.ReactNode = <CircularProgress/>
+
+  let productsArea: React.ReactNode = <CircularProgress/>;
+
   if (!isLoading && products) {
     productsArea = products.map(product => (
       <ProductItem
-        key={product.id}
         id={product.id}
+        key={product.id}
         title={product.title}
         price={product.price}
         image={product.image}
       />
     ))
   }
-  
+
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item container justifyContent="space-between" alignItems="center">
@@ -41,7 +42,7 @@ export default function Home() {
           </Button>
         </Grid>
       </Grid>
-      
+
       <Grid item container spacing={1}>
         {productsArea}
       </Grid>

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Typography } from '@mui/material';
-import ProductForm from '@/components/ProductForm/ProductForm';
+import ProductForm from '@/components/products/ProductForm/ProductForm';
 import { useMutation } from '@tanstack/react-query';
 import { ProductMutation } from '@/types';
 import axiosApi from '@/axiosApi';
@@ -9,10 +9,10 @@ import { useRouter } from 'next/navigation';
 
 const NewProductPage = () => {
   const router = useRouter();
+  
   const mutation = useMutation({
     mutationFn: async (productData: ProductMutation) => {
       const formData = new FormData();
-      
       formData.append('title', productData.title);
       formData.append('description', productData.description);
       formData.append('price', productData.price);
@@ -29,13 +29,12 @@ const NewProductPage = () => {
     await mutation.mutateAsync(productData);
     void router.push('/');
   };
+  
   return (
-    <div>
-      <Typography variant="h4" sx={{mb: 2}}>
-        New product
-      </Typography>
+    <>
+      <Typography variant="h4" sx={{mb: 2}}>New product</Typography>
       <ProductForm onSubmit={onSubmit} isLoading={mutation.isPending}/>
-    </div>
+    </>
   );
 };
 

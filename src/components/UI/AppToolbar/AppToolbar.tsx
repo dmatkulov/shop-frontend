@@ -3,7 +3,6 @@ import React from 'react';
 import { AppBar, styled, Toolbar, Typography } from '@mui/material';
 import NextLink from 'next/link';
 
-
 const Link = styled(NextLink)({
   color: 'inherit',
   textDecoration: 'none',
@@ -11,7 +10,6 @@ const Link = styled(NextLink)({
     color: 'inherit',
   }
 });
-
 
 const AppToolbar = () => {
   return (
